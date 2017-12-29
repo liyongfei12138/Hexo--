@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>一条咸鱼</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="123456789101112131415161718192021222324252627282930313233343536373839404142// 清除缓存- (void)clickCleanBtn&amp;#123;    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@&amp;quot;清除缓存&amp;quot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一条咸鱼">
+<meta property="og:url" content="http://yoursite.com/2017/12/11/清除缓存/index.html">
+<meta property="og:site_name" content="一条咸鱼">
+<meta property="og:description" content="123456789101112131415161718192021222324252627282930313233343536373839404142// 清除缓存- (void)clickCleanBtn&amp;#123;    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@&amp;quot;清除缓存&amp;quot">
+<meta property="og:updated_time" content="2017-12-11T06:54:50.818Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一条咸鱼">
+<meta name="twitter:description" content="123456789101112131415161718192021222324252627282930313233343536373839404142// 清除缓存- (void)clickCleanBtn&amp;#123;    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@&amp;quot;清除缓存&amp;quot">
+  
+    <link rel="alternate" href="/atom.xml" title="一条咸鱼" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">一条咸鱼</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">iOS-XFF</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-清除缓存" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/11/清除缓存/" class="article-date">
+  <time datetime="2017-12-11T06:54:50.818Z" itemprop="datePublished">2017-12-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">// 清除缓存</div><div class="line">- (void)clickCleanBtn</div><div class="line">&#123;</div><div class="line">    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@&quot;清除缓存&quot; message:@&quot;确定清除缓存?&quot; preferredStyle:UIAlertControllerStyleAlert];</div><div class="line">    // 点击确定</div><div class="line">    UIAlertAction *action = [UIAlertAction actionWithTitle:@&quot;确定&quot; style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) &#123;</div><div class="line">        </div><div class="line">        // 清除缓存</div><div class="line">        NSString * cachPath = [ NSSearchPathForDirectoriesInDomains ( NSCachesDirectory , NSUserDomainMask , YES ) firstObject ];</div><div class="line">        NSArray * files = [[ NSFileManager defaultManager ] subpathsAtPath :cachPath];</div><div class="line">        //        NSLog ( @&quot;cachpath = %@&quot; , cachPath);</div><div class="line">        for ( NSString * p in files) &#123;</div><div class="line">            NSError * error = nil ;</div><div class="line">            NSString * path = [cachPath stringByAppendingPathComponent :p];</div><div class="line">            if ([[ NSFileManager defaultManager ] fileExistsAtPath :path]) &#123;</div><div class="line">                [[ NSFileManager defaultManager ] removeItemAtPath :path error :&amp;error];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        [ self performSelectorOnMainThread : @selector (clearCachSuccess) withObject :nil waitUntilDone : YES ];</div><div class="line">        [self clearCachSuccess];</div><div class="line">    &#125;];</div><div class="line">    // 点击返回</div><div class="line">    UIAlertAction *action1 = [UIAlertAction actionWithTitle:@&quot;返回&quot; style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) &#123;</div><div class="line">        </div><div class="line">    &#125;];</div><div class="line">    // 添加action</div><div class="line">    [alert addAction:action];</div><div class="line">    [alert addAction:action1];</div><div class="line">    [self.owner presentViewController:alert animated:YES completion:nil];</div><div class="line">&#125;</div><div class="line">- (void)clearCachSuccess</div><div class="line">&#123;</div><div class="line">    //    NSLog ( @&quot; 清理成功 &quot; );</div><div class="line">    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@&quot;提示&quot; message:@&quot;缓存清理完毕&quot; preferredStyle:UIAlertControllerStyleAlert];</div><div class="line">    </div><div class="line">    UIAlertAction *action = [UIAlertAction actionWithTitle:@&quot;返回&quot; style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) &#123;</div><div class="line">        </div><div class="line">    &#125;];</div><div class="line">    [alert addAction:action];</div><div class="line">    [self.owner presentViewController:alert animated:YES completion:nil];</div><div class="line">&#125;</div><div class="line">@e</div></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/12/11/清除缓存/" data-id="cjbq7yaxf0006ss6a6n3cv5l6" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/12/29/SDWebImage下载图片/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/12/11/隐藏nav背景/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/12/29/判断某个点的颜色/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/29/SDWebImage下载图片/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/11/清除缓存/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/11/隐藏nav背景/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/04/设置图片透明度/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

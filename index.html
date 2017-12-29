@@ -65,6 +65,193 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-判断某个点的颜色" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/29/判断某个点的颜色/" class="article-date">
+  <time datetime="2017-12-29T01:52:50.792Z" itemprop="datePublished">2017-12-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="判断某个点的颜色"><a href="#判断某个点的颜色" class="headerlink" title="判断某个点的颜色"></a>判断某个点的颜色</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div></pre></td><td class="code"><pre><div class="line">#pragma mark - 判断某个点的颜色</div><div class="line">// 公司项目判断背景某个点颜色来使用图片</div><div class="line">+ (BOOL)getPixelColorAtLocation:(CGPoint)point inImage:(UIImage *)image &#123;</div><div class="line"></div><div class="line">    UIColor* color = nil;</div><div class="line">    CGImageRef inImage = image.CGImage;</div><div class="line">    CGContextRef cgctx = [self createARGBBitmapContextFromImage:inImage];</div><div class="line"></div><div class="line">    if (cgctx == NULL) &#123;</div><div class="line">        return nil;</div><div class="line">    &#125;</div><div class="line">    size_t w = CGImageGetWidth(inImage);</div><div class="line">    size_t h = CGImageGetHeight(inImage);</div><div class="line">    CGRect rect = &#123;&#123;0,0&#125;,&#123;w,h&#125;&#125;;</div><div class="line"></div><div class="line">    CGContextDrawImage(cgctx, rect, inImage);</div><div class="line">    unsigned char *data = CGBitmapContextGetData (cgctx);</div><div class="line"></div><div class="line">     BOOL isColor = NO;</div><div class="line">    </div><div class="line">    if (data != NULL) &#123;</div><div class="line"></div><div class="line">        int offset = 4 * ( ( w * round(point.y)) + round(point.x));</div><div class="line">        // 获取透明底以及RGB 数值</div><div class="line">        int alpha =  data[offset];</div><div class="line">        int red = data[offset+1];</div><div class="line">        int green = data[offset+2];</div><div class="line">        int blue = data[offset+3];</div><div class="line">        </div><div class="line">        if ((red &gt; 0) &amp;&amp; ((green &gt; 180) || (blue &gt; 180)))</div><div class="line">        &#123;</div><div class="line">            isColor = YES;</div><div class="line">        &#125;</div><div class="line">        else if ((green &gt; 180) &amp;&amp; ((red &gt; 180) || (blue &gt; 180)))</div><div class="line">        &#123;</div><div class="line">            isColor = YES;</div><div class="line">        &#125;</div><div class="line">        else if ((blue &gt; 180) &amp;&amp; ((green &gt; 180) || (red &gt; 180)))</div><div class="line">        &#123;</div><div class="line">            isColor = YES;</div><div class="line">        &#125;</div><div class="line">        else</div><div class="line">        &#123;</div><div class="line">            isColor = NO;</div><div class="line">        &#125;</div><div class="line">        color = [UIColor colorWithRed:(red/255.0f) green:(green/255.0f) blue:</div><div class="line">                 (blue/255.0f) alpha:(alpha/255.0f)];</div><div class="line">    &#125;</div><div class="line">    CGContextRelease(cgctx);</div><div class="line">    if (data) &#123;</div><div class="line"></div><div class="line">        free(data);</div><div class="line">    &#125;</div><div class="line">    return isColor;</div><div class="line">&#125;</div><div class="line">+ (CGContextRef) createARGBBitmapContextFromImage:(CGImageRef) inImage</div><div class="line">&#123;</div><div class="line">    CGContextRef    context = NULL;</div><div class="line">    CGColorSpaceRef colorSpace;</div><div class="line"></div><div class="line">    void *bitmapData;</div><div class="line">    int bitmapByteCount;</div><div class="line">    int bitmapBytesPerRow;</div><div class="line">    size_t pixelsWide = CGImageGetWidth(inImage);</div><div class="line">    size_t pixelsHigh = CGImageGetHeight(inImage);</div><div class="line">    bitmapBytesPerRow   = (int)(pixelsWide * 4);</div><div class="line">    bitmapByteCount     = (int)(bitmapBytesPerRow * pixelsHigh);</div><div class="line">    colorSpace = CGColorSpaceCreateDeviceRGB();</div><div class="line">    if (colorSpace == NULL)</div><div class="line">    &#123;</div><div class="line">        fprintf(stderr, &quot;Error allocating color space\n&quot;);</div><div class="line">        return NULL;</div><div class="line">    &#125;</div><div class="line">    bitmapData = malloc( bitmapByteCount );</div><div class="line">    if (bitmapData == NULL)</div><div class="line">    &#123;</div><div class="line">        fprintf (stderr, &quot;Memory not allocated!&quot;);</div><div class="line">        CGColorSpaceRelease( colorSpace );</div><div class="line">        return NULL;</div><div class="line">    &#125;</div><div class="line">    context = CGBitmapContextCreate (bitmapData, pixelsWide, pixelsHigh, 8, bitmapBytesPerRow, colorSpace, kCGImageAlphaPremultipliedFirst);</div><div class="line">    if (context == NULL)</div><div class="line">    &#123;</div><div class="line">        free (bitmapData);</div><div class="line">        fprintf (stderr, &quot;Context not created!&quot;);</div><div class="line">    &#125;</div><div class="line">    CGColorSpaceRelease(colorSpace );</div><div class="line">    return context;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/12/29/判断某个点的颜色/" data-id="cjbr9lb2r0000hg6as6gbj9uz" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-SDWebImage下载图片" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/29/SDWebImage下载图片/" class="article-date">
+  <time datetime="2017-12-29T01:45:47.967Z" itemprop="datePublished">2017-12-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="SDWebImage下载图片"><a href="#SDWebImage下载图片" class="headerlink" title="SDWebImage下载图片"></a>SDWebImage下载图片</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">需要导入 </div><div class="line">#import &lt;SDWebImageManager.h&gt;</div><div class="line">#import &lt;SDImageCache.h&gt;</div><div class="line"></div><div class="line">代码实现 -&gt;</div><div class="line"> [[SDWebImageManager sharedManager] downloadImageWithURL:[NSURL URLWithString:@&quot;anurl&quot;] options:0</div><div class="line">                                                               progress:^(NSInteger receivedSize, NSInteger expectedSize)</div><div class="line">                 &#123;</div><div class="line">                     //处理下载进度 </div><div class="line">                 &#125; completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) &#123;</div><div class="line">                     completedCount ++ ;</div><div class="line">                     if (error) &#123;</div><div class="line">                         DDLogDebug(@&quot;error is %@&quot;,error);</div><div class="line">                     &#125;</div><div class="line">                     if (image) &#123;</div><div class="line">                        //图片下载完成  在这里进行相关操作，如加到数组里 或者显示在imageView上</div><div class="line">                     &#125;</div><div class="line">                    &#125;</div><div class="line">                 &#125;];</div></pre></td></tr></table></figure>
+<h2 id="保存到手机"><a href="#保存到手机" class="headerlink" title="保存到手机"></a>保存到手机</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">需要导入 #import &lt;Photos/Photos.h&gt;</div><div class="line">info.plist 添加</div><div class="line">Privacy - Photo Library Additions Usage Description</div><div class="line">Privacy - Photo Library Usage Description</div><div class="line">代码实现 -&gt;</div><div class="line"></div><div class="line">UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);  // 调用下面方法</div><div class="line"></div><div class="line">-(void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo</div><div class="line">&#123;</div><div class="line">    NSString *msg = nil ;</div><div class="line">    if(error)&#123;</div><div class="line">        msg = @&quot;保存图片失败,请检查应用是否允许访问相册&quot; ;</div><div class="line">        [SVProgressHUD showErrorWithStatus:msg];</div><div class="line">        [SVProgressHUD dismissWithDelay:0.5];</div><div class="line">        </div><div class="line">    &#125;else&#123;</div><div class="line">        msg = @&quot;保存图片成功&quot; ;</div><div class="line">        [SVProgressHUD showSuccessWithStatus:msg];</div><div class="line">        [SVProgressHUD dismissWithDelay:0.5];</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/12/29/SDWebImage下载图片/" data-id="cjbr9gj0w0000aa6a2df7vv76" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-清除缓存" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/11/清除缓存/" class="article-date">
+  <time datetime="2017-12-11T06:54:50.818Z" itemprop="datePublished">2017-12-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">// 清除缓存</div><div class="line">- (void)clickCleanBtn</div><div class="line">&#123;</div><div class="line">    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@&quot;清除缓存&quot; message:@&quot;确定清除缓存?&quot; preferredStyle:UIAlertControllerStyleAlert];</div><div class="line">    // 点击确定</div><div class="line">    UIAlertAction *action = [UIAlertAction actionWithTitle:@&quot;确定&quot; style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) &#123;</div><div class="line">        </div><div class="line">        // 清除缓存</div><div class="line">        NSString * cachPath = [ NSSearchPathForDirectoriesInDomains ( NSCachesDirectory , NSUserDomainMask , YES ) firstObject ];</div><div class="line">        NSArray * files = [[ NSFileManager defaultManager ] subpathsAtPath :cachPath];</div><div class="line">        //        NSLog ( @&quot;cachpath = %@&quot; , cachPath);</div><div class="line">        for ( NSString * p in files) &#123;</div><div class="line">            NSError * error = nil ;</div><div class="line">            NSString * path = [cachPath stringByAppendingPathComponent :p];</div><div class="line">            if ([[ NSFileManager defaultManager ] fileExistsAtPath :path]) &#123;</div><div class="line">                [[ NSFileManager defaultManager ] removeItemAtPath :path error :&amp;error];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        [ self performSelectorOnMainThread : @selector (clearCachSuccess) withObject :nil waitUntilDone : YES ];</div><div class="line">        [self clearCachSuccess];</div><div class="line">    &#125;];</div><div class="line">    // 点击返回</div><div class="line">    UIAlertAction *action1 = [UIAlertAction actionWithTitle:@&quot;返回&quot; style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) &#123;</div><div class="line">        </div><div class="line">    &#125;];</div><div class="line">    // 添加action</div><div class="line">    [alert addAction:action];</div><div class="line">    [alert addAction:action1];</div><div class="line">    [self.owner presentViewController:alert animated:YES completion:nil];</div><div class="line">&#125;</div><div class="line">- (void)clearCachSuccess</div><div class="line">&#123;</div><div class="line">    //    NSLog ( @&quot; 清理成功 &quot; );</div><div class="line">    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@&quot;提示&quot; message:@&quot;缓存清理完毕&quot; preferredStyle:UIAlertControllerStyleAlert];</div><div class="line">    </div><div class="line">    UIAlertAction *action = [UIAlertAction actionWithTitle:@&quot;返回&quot; style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) &#123;</div><div class="line">        </div><div class="line">    &#125;];</div><div class="line">    [alert addAction:action];</div><div class="line">    [self.owner presentViewController:alert animated:YES completion:nil];</div><div class="line">&#125;</div><div class="line">@e</div></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/12/11/清除缓存/" data-id="cjbq7yaxf0006ss6a6n3cv5l6" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-隐藏nav背景" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/11/隐藏nav背景/" class="article-date">
+  <time datetime="2017-12-11T05:30:26.069Z" itemprop="datePublished">2017-12-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">- (void)viewWillAppear:(BOOL)animated</div><div class="line">&#123;</div><div class="line">    self.navigationController.navigationBar.translucent = YES;</div><div class="line">    </div><div class="line">    UIColor *color = [UIColor clearColor];</div><div class="line">    CGRect rect =CGRectMake(0, 0, kDeviceWidth, 64);</div><div class="line">    UIGraphicsBeginImageContext(rect.size);</div><div class="line">    CGContextRef contenxt = UIGraphicsGetCurrentContext();</div><div class="line">    CGContextSetFillColorWithColor(contenxt, color.CGColor);</div><div class="line">    CGContextFillRect(contenxt, rect);</div><div class="line">    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();</div><div class="line">    UIGraphicsEndImageContext();</div><div class="line">    </div><div class="line">    [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];</div><div class="line">    </div><div class="line">    self.navigationController.navigationBar.clipsToBounds = YES;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/12/11/隐藏nav背景/" data-id="cjbq805pj0000vv6a13yxt22m" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-设置图片透明度" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/04/设置图片透明度/" class="article-date">
+  <time datetime="2017-12-04T02:59:00.787Z" itemprop="datePublished">2017-12-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> *  设置图片透明度</div><div class="line"> * @param alpha 透明度</div><div class="line"> * @param image 图片</div><div class="line"> */</div><div class="line">-(UIImage *)imageByApplyingAlpha:(CGFloat )alpha  image:(UIImage*)image</div><div class="line">&#123;</div><div class="line">    UIGraphicsBeginImageContextWithOptions(image.size, NO, 0.0f);</div><div class="line">    </div><div class="line">    CGContextRef ctx = UIGraphicsGetCurrentContext();</div><div class="line">    CGRect area = CGRectMake(0, 0, image.size.width, image.size.height);</div><div class="line">    </div><div class="line">    CGContextScaleCTM(ctx, 1, -1);</div><div class="line">    CGContextTranslateCTM(ctx, 0, -area.size.height);</div><div class="line">    CGContextSetBlendMode(ctx, kCGBlendModeMultiply);</div><div class="line">    CGContextSetAlpha(ctx, alpha);</div><div class="line">    CGContextDrawImage(ctx, area, image.CGImage);</div><div class="line"></div><div class="line">    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();</div><div class="line">    UIGraphicsEndImageContext();</div><div class="line"></div><div class="line">    return newImage;</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/12/04/设置图片透明度/" data-id="cjbq7yaxf0007ss6atab7v7vv" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-改变tableView编辑状态选多选按钮" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/11/22/改变tableView编辑状态选多选按钮/" class="article-date">
+  <time datetime="2017-11-22T08:52:34.000Z" itemprop="datePublished">2017-11-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="改变tableView编辑状态选多选按钮"><a href="#改变tableView编辑状态选多选按钮" class="headerlink" title="改变tableView编辑状态选多选按钮"></a>改变tableView编辑状态选多选按钮</h2><p>```<br>  for (UIControl *control in self.subviews){</p>
+<pre><code>    if ([control isMemberOfClass:NSClassFromString(@&quot;UITableViewCellEditControl&quot;)]){
+
+        for (UIView *v in control.subviews)
+
+        {
+
+            if ([v isKindOfClass: [UIImageView class]]) {
+
+                UIImageView *img=(UIImageView *)v;
+
+                if (self.selected) {
+
+                    img.image=[UIImage imageNamed:@&quot;button_xuanze2.png&quot;];
+
+                }else
+
+                {
+
+                    img.image=[UIImage imageNamed:@&quot;button_xuanze1.png&quot;];
+
+                }
+
+            }
+
+        }
+
+    }
+
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/11/22/改变tableView编辑状态选多选按钮/" data-id="cjbq7yaxe0005ss6al4egaut1" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-忽略文件.gitgnore" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/10/18/忽略文件.gitgnore/" class="article-date">
@@ -81,7 +268,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/10/18/忽略文件.gitgnore/" data-id="cj8x47seo00034k6a8jobb0wd" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/10/18/忽略文件.gitgnore/" data-id="cjbq7yax90004ss6as89w9c21" class="article-share-link">Share</a>
       
       
     </footer>
@@ -151,7 +338,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/10/16/SVN的基本使用/" data-id="cj8x47sed00004k6akzluux6v" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/10/16/SVN的基本使用/" data-id="cjbq7yax00000ss6aqv7bxe3n" class="article-share-link">Share</a>
       
       
     </footer>
@@ -223,7 +410,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/05/05/Cocoapods安装/" data-id="cj8x47sei00014k6a0x28xpw8" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/05/05/Cocoapods安装/" data-id="cjbq7yax40001ss6a6siujd5f" class="article-share-link">Share</a>
       
       
     </footer>
@@ -233,9 +420,9 @@
 
 
   
-    <article id="post-hexo基本使用" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-开发常见的宏" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/05/05/hexo基本使用/" class="article-date">
+    <a href="/2017/05/05/开发常见的宏/" class="article-date">
   <time datetime="2017-05-04T16:29:12.000Z" itemprop="datePublished">2017-05-05</time>
 </a>
     
@@ -245,31 +432,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="gitHub博客终端指令"><a href="#gitHub博客终端指令" class="headerlink" title="gitHub博客终端指令"></a>gitHub博客终端指令</h2><h3 id="lt-指令的使用-gt"><a href="#lt-指令的使用-gt" class="headerlink" title="&lt;指令的使用&gt;"></a>&lt;指令的使用&gt;</h3><ul>
-<li>根目录”cd hexo”</li>
-<li>开启服务”hexo server”</li>
-<li>打开URL</li>
-</ul>
-<h3 id="lt-文件夹结构-gt"><a href="#lt-文件夹结构-gt" class="headerlink" title="&lt;文件夹结构&gt;"></a>&lt;文件夹结构&gt;</h3><ul>
-<li>source: 博客资源文件夹</li>
-<li>source/_drafts：草稿文件夹</li>
-<li>source/_posts: 文章文件夹</li>
-<li>themes: 存放主题文件夹</li>
-<li>themes/landscape: 默认的主题</li>
-<li>_confid.yml： 全局配置文件</li>
-</ul>
-<p>###&lt;命令行生成指令&gt;</p>
-<ul>
-<li>hexo new ‘name’ &lt;’name’为新建博客名&gt; //hexo n</li>
-<li>hexo new page ‘pagename’ &lt;新建页面&gt; //hexo n</li>
-<li>hexo generate &lt;生成静态网页至public目录&gt; //hexo g</li>
-<li>hexo deploy &lt;将deploy目录部署到服务器&gt; //hexo d</li>
-</ul>
+        <h2 id="开发中常用的宏"><a href="#开发中常用的宏" class="headerlink" title="开发中常用的宏"></a>开发中常用的宏</h2><h3 id="lt-关于颜色-gt"><a href="#lt-关于颜色-gt" class="headerlink" title="&lt;关于颜色&gt;"></a>&lt;关于颜色&gt;</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// RGB颜色</div><div class="line">#define ZMColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]</div><div class="line">// 随机色</div><div class="line">#define ZMRandomColor ZMColor(arc4random_uniform(256), arc4random_uniform(256), arc4random_uniform(256))</div></pre></td></tr></table></figure>
+<h3 id="lt-关于尺寸-gt"><a href="#lt-关于尺寸-gt" class="headerlink" title="&lt;关于尺寸&gt;"></a>&lt;关于尺寸&gt;</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// 宽度</div><div class="line">#define kDeviceWidth  [UIScreen mainScreen].bounds.size.width</div><div class="line">// 高度</div><div class="line">#define kDeviceHeight [UIScreen mainScreen].bounds.size.height</div></pre></td></tr></table></figure>
+<p>###&lt;关于字体&gt;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">// 宽度</div><div class="line">#define PFR20Font [UIFont fontWithName:PFR size:20];</div><div class="line">#define PFR18Font [UIFont fontWithName:PFR size:18];</div><div class="line">#define PFR16Font [UIFont fontWithName:PFR size:16];</div><div class="line">#define PFR15Font [UIFont fontWithName:PFR size:15];</div><div class="line">#define PFR14Font [UIFont fontWithName:PFR size:14];</div><div class="line">#define PFR13Font [UIFont fontWithName:PFR size:13];</div><div class="line">#define PFR12Font [UIFont fontWithName:PFR size:12];</div><div class="line">#define PFR11Font [UIFont fontWithName:PFR size:11];</div><div class="line">#define PFR10Font [UIFont fontWithName:PFR size:10];</div></pre></td></tr></table></figure></p>
+<p>###&lt;关于设备适配&gt;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">//设备判断</div><div class="line">#define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)</div><div class="line">#define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)</div><div class="line">#define IS_RETINA ([[UIScreen mainScreen] scale] &gt;= 2.0)</div><div class="line"></div><div class="line">#define SCREEN_WIDTH ([[UIScreen mainScreen] bounds].size.width)</div><div class="line">#define SCREEN_HEIGHT ([[UIScreen mainScreen] bounds].size.height)</div><div class="line">#define SCREEN_MAX_LENGTH (MAX(SCREEN_WIDTH, SCREEN_HEIGHT))</div><div class="line">#define SCREEN_MIN_LENGTH (MIN(SCREEN_WIDTH, SCREEN_HEIGHT))</div><div class="line"></div><div class="line">#define IS_IPHONE_4_OR_LESS (IS_IPHONE &amp;&amp; SCREEN_MAX_LENGTH &lt; 568.0)</div><div class="line">#define IS_IPHONE_5 (IS_IPHONE &amp;&amp; SCREEN_MAX_LENGTH == 568.0)</div><div class="line">#define IS_IPHONE_6 (IS_IPHONE &amp;&amp; SCREEN_MAX_LENGTH == 667.0)</div><div class="line">#define IS_IPHONE_6P (IS_IPHONE &amp;&amp; SCREEN_MAX_LENGTH == 736.0)</div><div class="line">#define IS_IPHONE_X ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)</div></pre></td></tr></table></figure></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/05/05/hexo基本使用/" data-id="cj8x47sem00024k6aa12g7c78" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/05/05/开发常见的宏/" data-id="cjbq7yax80003ss6abio7bpss" class="article-share-link">Share</a>
       
       
     </footer>
@@ -280,6 +451,10 @@
 
   
 
+
+  <nav id="page-nav">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">__('next') &raquo;</a>
+  </nav>
 </section>
         
           <aside id="sidebar">
@@ -296,7 +471,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
     </div>
   </div>
 
@@ -309,19 +484,23 @@
       <ul>
         
           <li>
-            <a href="/2017/10/18/忽略文件.gitgnore/">(no title)</a>
+            <a href="/2017/12/29/判断某个点的颜色/">(no title)</a>
           </li>
         
           <li>
-            <a href="/2017/10/16/SVN的基本使用/">(no title)</a>
+            <a href="/2017/12/29/SDWebImage下载图片/">(no title)</a>
           </li>
         
           <li>
-            <a href="/2017/05/05/Cocoapods安装/">(no title)</a>
+            <a href="/2017/12/11/清除缓存/">(no title)</a>
           </li>
         
           <li>
-            <a href="/2017/05/05/hexo基本使用/">(no title)</a>
+            <a href="/2017/12/11/隐藏nav背景/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/04/设置图片透明度/">(no title)</a>
           </li>
         
       </ul>

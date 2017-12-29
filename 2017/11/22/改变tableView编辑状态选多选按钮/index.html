@@ -5,16 +5,16 @@
   
   <title>一条咸鱼</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="SVN终端指令&amp;lt;指令的使用&amp;gt; 下载”svn checkout”-&amp;gt;”svn co” 查看状态”svn status”-&amp;gt;”svn st” 添加到服务器管理 svn add  添加”svn commit”-&amp;gt;”svn ci” 更新”svn updata”-&amp;gt;”svn up” 移除”svn remove”-&amp;gt;”svn rm” 查看版本信息”svn log” 将">
+  <meta name="description" content="改变tableView编辑状态选多选按钮```  for (UIControl *control in self.subviews){     if ([control isMemberOfClass:NSClassFromString(@&amp;quot;UITableViewCellEditControl&amp;quot;)]){          for (UIView *v in control.su">
 <meta property="og:type" content="article">
 <meta property="og:title" content="一条咸鱼">
-<meta property="og:url" content="http://yoursite.com/2017/10/16/SVN的基本使用/index.html">
+<meta property="og:url" content="http://yoursite.com/2017/11/22/改变tableView编辑状态选多选按钮/index.html">
 <meta property="og:site_name" content="一条咸鱼">
-<meta property="og:description" content="SVN终端指令&amp;lt;指令的使用&amp;gt; 下载”svn checkout”-&amp;gt;”svn co” 查看状态”svn status”-&amp;gt;”svn st” 添加到服务器管理 svn add  添加”svn commit”-&amp;gt;”svn ci” 更新”svn updata”-&amp;gt;”svn up” 移除”svn remove”-&amp;gt;”svn rm” 查看版本信息”svn log” 将">
-<meta property="og:updated_time" content="2017-10-16T12:16:22.000Z">
+<meta property="og:description" content="改变tableView编辑状态选多选按钮```  for (UIControl *control in self.subviews){     if ([control isMemberOfClass:NSClassFromString(@&amp;quot;UITableViewCellEditControl&amp;quot;)]){          for (UIView *v in control.su">
+<meta property="og:updated_time" content="2017-11-30T08:12:11.840Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一条咸鱼">
-<meta name="twitter:description" content="SVN终端指令&amp;lt;指令的使用&amp;gt; 下载”svn checkout”-&amp;gt;”svn co” 查看状态”svn status”-&amp;gt;”svn st” 添加到服务器管理 svn add  添加”svn commit”-&amp;gt;”svn ci” 更新”svn updata”-&amp;gt;”svn up” 移除”svn remove”-&amp;gt;”svn rm” 查看版本信息”svn log” 将">
+<meta name="twitter:description" content="改变tableView编辑状态选多选按钮```  for (UIControl *control in self.subviews){     if ([control isMemberOfClass:NSClassFromString(@&amp;quot;UITableViewCellEditControl&amp;quot;)]){          for (UIView *v in control.su">
   
     <link rel="alternate" href="/atom.xml" title="一条咸鱼" type="application/atom+xml">
   
@@ -67,10 +67,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-SVN的基本使用" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-改变tableView编辑状态选多选按钮" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/10/16/SVN的基本使用/" class="article-date">
-  <time datetime="2017-10-16T11:29:32.000Z" itemprop="datePublished">2017-10-16</time>
+    <a href="/2017/11/22/改变tableView编辑状态选多选按钮/" class="article-date">
+  <time datetime="2017-11-22T08:52:34.000Z" itemprop="datePublished">2017-11-22</time>
 </a>
     
   </div>
@@ -79,55 +79,41 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="SVN终端指令"><a href="#SVN终端指令" class="headerlink" title="SVN终端指令"></a>SVN终端指令</h2><h3 id="lt-指令的使用-gt"><a href="#lt-指令的使用-gt" class="headerlink" title="&lt;指令的使用&gt;"></a>&lt;指令的使用&gt;</h3><ul>
-<li>下载”svn checkout”-&gt;”svn co”</li>
-<li>查看状态”svn status”-&gt;”svn st”</li>
-<li>添加到服务器管理 svn add </li>
-<li>添加”svn commit”-&gt;”svn ci”</li>
-<li>更新”svn updata”-&gt;”svn up”</li>
-<li>移除”svn remove”-&gt;”svn rm”</li>
-<li>查看版本信息”svn log”</li>
-<li>将两个版本之间的差异合并到当前文件 svn merge </li>
-<li>撤销之前的一切修改 svn revert </li>
-</ul>
-<h3 id="lt-获取Windows电脑IP地址-gt"><a href="#lt-获取Windows电脑IP地址-gt" class="headerlink" title="&lt;获取Windows电脑IP地址&gt;"></a>&lt;获取Windows电脑IP地址&gt;</h3><ul>
-<li>ipconfig</li>
-</ul>
-<h3 id="lt-添加和上传-gt"><a href="#lt-添加和上传-gt" class="headerlink" title="&lt;添加和上传&gt;"></a>&lt;添加和上传&gt;</h3><ul>
-<li>svn co 服务器地址 –username=用户名 –password=用户密码</li>
-<li>svn ci -m 注释 文件名</li>
-<li>svn up -r 版本</li>
-</ul>
-<h3 id="lt-客户端指令SVN-gt"><a href="#lt-客户端指令SVN-gt" class="headerlink" title="&lt;客户端指令SVN&gt;"></a>&lt;客户端指令SVN&gt;</h3><ul>
-<li>svn info ：查看文件的详细信息 </li>
-<li>svn diff ：查看不同版本的区别</li>
-<li>svn log ：查看日志信息</li>
-<li>svn list ：列出版本库下的文件和目录列表</li>
-<li>svn status ：查看文件状态（简写svn st）</li>
-<li>svn help ：获取帮助信息（比如svn help ci）</li>
-<li>svn lock ：加锁</li>
-<li>svn unlock ：解锁</li>
-</ul>
-<h3 id="lt-显示的文件状态-gt"><a href="#lt-显示的文件状态-gt" class="headerlink" title="&lt;显示的文件状态&gt;"></a>&lt;显示的文件状态&gt;</h3><ul>
-<li>‘ ‘ 没有修改</li>
-<li>‘A’ 被添加到本地代码仓库</li>
-<li>‘C’ 冲突</li>
-<li>‘D’ 被删除</li>
-<li>‘I’ 被忽略</li>
-<li>‘M’ 被修改</li>
-<li>‘R’ 被替换</li>
-<li>‘X’ 外部定义创建的版本目录</li>
-<li>‘?’ 文件没有被添加到本地版本库内,不在SVN的管理之下</li>
-<li>‘!’ 文件丢失或者不完整(不识别该文件)</li>
-<li>‘~’ 受控文件被其他文件阻隔</li>
-<li>‘U’ 更新最新的代码到本地(本地有文件的情况下)</li>
-<li>‘G’ 产生冲突后,更新操作去解决冲突,相当于进行合并</li>
-</ul>
+        <h2 id="改变tableView编辑状态选多选按钮"><a href="#改变tableView编辑状态选多选按钮" class="headerlink" title="改变tableView编辑状态选多选按钮"></a>改变tableView编辑状态选多选按钮</h2><p>```<br>  for (UIControl *control in self.subviews){</p>
+<pre><code>    if ([control isMemberOfClass:NSClassFromString(@&quot;UITableViewCellEditControl&quot;)]){
 
+        for (UIView *v in control.subviews)
+
+        {
+
+            if ([v isKindOfClass: [UIImageView class]]) {
+
+                UIImageView *img=(UIImageView *)v;
+
+                if (self.selected) {
+
+                    img.image=[UIImage imageNamed:@&quot;button_xuanze2.png&quot;];
+
+                }else
+
+                {
+
+                    img.image=[UIImage imageNamed:@&quot;button_xuanze1.png&quot;];
+
+                }
+
+            }
+
+        }
+
+    }
+
+}
+</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/10/16/SVN的基本使用/" data-id="cjbq7yax00000ss6aqv7bxe3n" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/11/22/改变tableView编辑状态选多选按钮/" data-id="cjbq7yaxe0005ss6al4egaut1" class="article-share-link">Share</a>
       
       
     </footer>
@@ -136,7 +122,7 @@
     
 <nav id="article-nav">
   
-    <a href="/2017/10/18/忽略文件.gitgnore/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/12/04/设置图片透明度/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
@@ -146,7 +132,7 @@
     </a>
   
   
-    <a href="/2017/05/05/Cocoapods安装/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/10/18/忽略文件.gitgnore/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
       <div class="article-nav-title"></div>
     </a>
